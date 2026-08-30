@@ -1,6 +1,38 @@
 #container{
-    border:5px solid black;
+    border:2px solid black;
     box-sizing:border-box;
     width:400px;
     height:600px;
+}
+
+#container #display,
+#container #switches{
+    margin:15px;
+}
+
+#container #display{
+    width: 326px;
+    height: 200px;
+    margin: 33px 33px 33px 33px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container #switches{
+    width: 326px;
+    height: 292px;
+    margin: 33px 33px 33px 33px;
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#container #switches button{
+    width: 81.5px;
+    height: 73px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
