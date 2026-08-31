@@ -33,9 +33,11 @@ function operate(numb1,operator,numb2){
     }
 }
 
-const button = document.querySelector("button")
+const buttons = document.querySelectorAll("button")
 
-button.addEventListener('click',function(event){
+//Now
+buttons.forEach((button)=>{
+    button.addEventListener('click',function(event){
     if(event.target.tagName === "BUTTON"){
         let buttonId = event.target.id;
 
@@ -57,9 +59,12 @@ button.addEventListener('click',function(event){
             case "/":operator="/";break;
 
             case "AC":numb1=0;break;
-            case "C":numb1=1;break;
+            case "=":numb1=1;break;
         }
+        log.textContent = `${numb1} ${operator} ${numb2} `
     console.log(numb1);
     console.log(operator);
     }
-})
+})})
+
+const log = document.querySelector("#log");
