@@ -1,10 +1,14 @@
 //2
+const buttons = document.querySelectorAll("button")
+const log = document.querySelector("#log")
+
 let numb1 = "";
 let numb2 = "";
 let numb1last;
 let numb2last; 
 let operator;
 let last;
+
 
 //1
 function add(num1,num2){
@@ -36,21 +40,15 @@ function operate(numb1,operator,numb2){
     }
 }
 
-const buttons = document.querySelectorAll("button")
-const log = document.querySelector("#log");
-
-let totalClicks = 0;
 buttons.forEach((button)=>{
     button.addEventListener('click',function(event){
-        totalClicks++;
+
+    //For accepting or gives a variable the id of the button clicked
         if(event.target.tagName==="BUTTON"){
             let buttonId = event.target.id;
 
-console.log(typeof(numb1last));
-console.log(typeof(numb2last));
-
-
-       out: if(
+        //For multiple operation without clicking '='
+            out: if(
                 (buttonId==="+" || buttonId==="-" || buttonId==="x" || buttonId==="/")&&
                 (numb1last!==undefined)&&
                 (numb2last!==undefined)&&
@@ -58,7 +56,7 @@ console.log(typeof(numb2last));
                 ){  
 
                 operator = buttonId;
-                
+
                 if(buttonId==="+"){
                     numb1last += numb2last;
                 }
@@ -76,6 +74,7 @@ console.log(typeof(numb2last));
                 log.textContent = last;
 
             }
+        //For clearing all variables
             else if(buttonId==="AC"){
             switch(buttonId){
                     case "AC":numb1="",numb2="",operator=undefined,
@@ -84,24 +83,28 @@ console.log(typeof(numb2last));
                 log.textContent = "";
                 break out;
             }
+        //For operating after clicking '='
             else if(buttonId==="="){
                 last = operate(numb1last,operator,numb2last);
                 numb1last = last;
                 log.textContent = last;
                 numb1="";numb2="";
             }
+        //For accepting second number variable
             else if(operator!==undefined){
                 let value = String(buttonId);
                 numb2+=value;
                 numb2last = Number(numb2);
                 log.textContent = numb2last;
             }
+        //For accepting first number variable
             else if(!isNaN(buttonId)){
                 let value = String(event.target.id);
                 numb1+=value;
                 numb1last = Number(numb1);
                 log.textContent = numb1last;
             }
+        //For accepting operator
             else if(isNaN(buttonId)){
                 switch(buttonId){
                     case "+":operator="+",numb1=numb1+numb2;break;
@@ -109,20 +112,14 @@ console.log(typeof(numb2last));
                     case "x":operator="x",numb1=numb1+numb2;break;
                     case "/":operator="/",numb1=numb1+numb2;break;
                 }
-                console.log(operator);
             }
-
-                    console.log(`numb1last is ${numb1last}`);
-                    console.log(`numb2last is ${numb2last}`);
-
         }
     })
 })
 
-//Now
-//Make it so that variables accept two digits.
-//tweak code to perform like normal calc
-//add comments
+
+
+
 
 //Bugs --
 /* Your calculator should not evaluate more than a single pair of numbers at a time. 
@@ -159,4 +156,3 @@ To see what this looks like in action, feel free to input the equation we just e
 // ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
 //Add a “backspace” button, so the user can undo their last input if they click the wrong number.
 //Add keyboard support!
-
