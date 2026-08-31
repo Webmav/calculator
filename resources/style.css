@@ -2,7 +2,8 @@
     border:2px solid black;
     box-sizing:border-box;
     width:400px;
-    height:600px;
+    height:500px;
+    border-radius:20px;
 }
 
 #container #display,
@@ -12,9 +13,10 @@
 
 #container #display{
     width: 326px;
-    height: 200px;
+    height: 100px;
     margin: 33px 33px 33px 33px;
     border: 2px solid black;
+    border-radius:20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +29,7 @@
     border: 2px solid black;
     display: flex;
     flex-wrap: wrap;
+    border-radius:5px;
 }
 
 #container #switches button{

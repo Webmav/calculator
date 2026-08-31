@@ -1,6 +1,8 @@
 //2
-let numb1;
-let numb2;
+let numb1 = "";
+let numb2 = "";
+let numb1last;
+let numb2last; 
 let operator;
 let last;
 
@@ -26,7 +28,7 @@ function operate(numb1,operator,numb2){
     else if(operator == "-"){
         return subtract(numb1,numb2);
     }
-    else if(operator == "*"){
+    else if(operator == "x"){
         return multiply(numb1,numb2);
     }
     else if(operator == "/"){
@@ -35,78 +37,6 @@ function operate(numb1,operator,numb2){
 }
 
 const buttons = document.querySelectorAll("button")
-
-//Now
-/*
-
-buttons.forEach((button)=>{
-    button.addEventListener('click',function(event){
-    if(event.target.tagName === "BUTTON"){
-        let buttonId = event.target.id;
-
-        switch(buttonId){
-            case "0":numb1=0;break;
-            case "1":numb1=1;break;
-            case "2":numb1=2;break;
-            case "3":numb1=3;break;
-            case "4":numb1=4;break;
-            case "5":numb1=5;break;
-            case "6":numb1=6;break;
-            case "7":numb1=7;break;
-            case "8":numb1=8;break;
-            case "9":numb1=9;break;
-
-            case "+":operator="+";break;
-            case "-":operator="-";break;
-            case "x":operator="*";break;
-            case "/":operator="/";break;
-            case "AC":numb1=0,numb2=0,operator="",last=0;break
-            case "=":last = operate(numb1,operator,numb2);break;
-        }
-        log.textContent = `${numb1}`
-
-        switch(buttonId){
-            case "+":operator="+";break;
-            case "-":operator="-";break;
-            case "x":operator="*";break;
-            case "/":operator="/";break;
-
-            case "AC":numb1=0,numb2=0,operator="",last=0;break
-            case "=":last = operate(numb1,operator,numb2);break;
-        }
-        log.textContent = `${numb1} ${operator} `
-
-        switch(buttonId){
-            case "0":numb2=0;break;
-            case "1":numb2=1;break;
-            case "2":numb2=2;break;
-            case "3":numb2=3;break;
-            case "4":numb2=4;break;
-            case "5":numb2=5;break;
-            case "6":numb2=6;break;
-            case "7":numb2=7;break;
-            case "8":numb2=8;break;
-            case "9":numb2=9;break;
-
-            case "+":operator="+";break;
-            case "-":operator="-";break;
-            case "x":operator="*";break;
-            case "/":operator="/";break;
-
-            case "AC":numb1=0,numb2=0,operator="",last=0;break
-            case "=":last = operate(numb1,operator,numb2);break;
-        }
-        log.textContent = `${numb1} ${operator} ${numb2} = ${last} `
-
-    console.log(numb1);
-    console.log(operator);
-    console.log(numb2);
-    console.log(last);
-    }
-})})
-
-*/
-
 const log = document.querySelector("#log");
 
 let totalClicks = 0;
@@ -114,144 +44,77 @@ buttons.forEach((button)=>{
     button.addEventListener('click',function(event){
         totalClicks++;
         if(event.target.tagName==="BUTTON"){
-        let buttonId = event.target.id;
+            let buttonId = event.target.id;
 
-            let turn = totalClicks%8;
+console.log(typeof(numb1last));
+console.log(typeof(numb2last));
 
-            if(buttonId==="AC"){
+
+       out: if(
+                (buttonId==="+" || buttonId==="-" || buttonId==="x" || buttonId==="/")&&
+                (numb1last!==undefined)&&
+                (numb2last!==undefined)&&
+                (operator!==undefined)
+                ){  
+
+                operator = buttonId;
+                
+                if(buttonId==="+"){
+                    numb1last += numb2last;
+                }
+                if(buttonId==="-"){
+                    numb1last -= numb2last;
+                }
+                if(buttonId==="x"){
+                    numb1last *= numb2last;
+                }
+                if(buttonId==="/"){
+                    numb1last /= numb2last;
+                }
+                numb2 = "";
+                last = numb1last;
+                log.textContent = last;
+
+            }
+            else if(buttonId==="AC"){
+            switch(buttonId){
+                    case "AC":numb1="",numb2="",operator=undefined,
+                                numb1last=0,numb2last=0,last=0;break;
+                }
+                log.textContent = "";
+                break out;
+            }
+            else if(buttonId==="="){
+                last = operate(numb1last,operator,numb2last);
+                numb1last = last;
+                log.textContent = last;
+                numb1="";numb2="";
+            }
+            else if(operator!==undefined){
+                let value = String(buttonId);
+                numb2+=value;
+                numb2last = Number(numb2);
+                log.textContent = numb2last;
+            }
+            else if(!isNaN(buttonId)){
+                let value = String(event.target.id);
+                numb1+=value;
+                numb1last = Number(numb1);
+                log.textContent = numb1last;
+            }
+            else if(isNaN(buttonId)){
                 switch(buttonId){
-                    case "AC":numb1=0,numb2=0,operator="",last=0,targetClicks = 0;break;
+                    case "+":operator="+",numb1=numb1+numb2;break;
+                    case "-":operator="-",numb1=numb1+numb2;break;
+                    case "x":operator="x",numb1=numb1+numb2;break;
+                    case "/":operator="/",numb1=numb1+numb2;break;
                 }
+                console.log(operator);
             }
 
-            else if(turn===1){
-                switch(buttonId){
-                case "0":numb1=0;break;
-                case "1":numb1=1;break;
-                case "2":numb1=2;break;
-                case "3":numb1=3;break;
-                case "4":numb1=4;break;
-                case "5":numb1=5;break;
-                case "6":numb1=6;break;
-                case "7":numb1=7;break;
-                case "8":numb1=8;break;
-                case "9":numb1=9;break;
-                }
-                log.textContent = `${numb1}`;
-            }
-            else if(turn===2){
-                switch(buttonId){
-                    case "+":operator="+";break;
-                    case "-":operator="-";break;
-                    case "x":operator="*";break;
-                    case "/":operator="/";break;
-                }
-                log.textContent = `${numb1} ${operator} `;
-            }
-            else if(turn===3){ 
-                switch(buttonId){
-                    case "0":numb2=0;break;
-                    case "1":numb2=1;break;
-                    case "2":numb2=2;break;
-                    case "3":numb2=3;break;
-                    case "4":numb2=4;break;
-                    case "5":numb2=5;break;
-                    case "6":numb2=6;break;
-                    case "7":numb2=7;break;
-                    case "8":numb2=8;break;
-                    case "9":numb2=9;break;
-                }
-                log.textContent = `${numb1} ${operator} ${numb2} `;
-            }
+                    console.log(`numb1last is ${numb1last}`);
+                    console.log(`numb2last is ${numb2last}`);
 
-
-            else if(turn===4){
-                if(buttonId=="="){
-                    switch(buttonId){
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} ${numb2} = ${last} `;
-                }
-                else{
-                    switch(buttonId){
-                        case "+":operator="+",numb1=numb1+numb2;break;
-                        case "-":operator="-",numb1=numb1+numb2;break;
-                        case "x":operator="x",numb1=numb1+numb2;break;
-                        case "/":operator="/",numb1=numb1+numb2;break;
-
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} `;
-                }
-            }
-            else if(turn===5){
-                switch(buttonId){
-                case "0":numb2=0;break;
-                case "1":numb2=1;break;
-                case "2":numb2=2;break;
-                case "3":numb2=3;break;
-                case "4":numb2=4;break;
-                case "5":numb2=5;break;
-                case "6":numb2=6;break;
-                case "7":numb2=7;break;
-                case "8":numb2=8;break;
-                case "9":numb2=9;break;
-                }
-                    log.textContent = `${numb1} ${operator} ${numb2} `;
-            }
-            else if(turn===6){
-                if(buttonId=="="){
-                    switch(buttonId){
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} ${numb2} = ${last} `;
-                }
-                else{
-                    switch(buttonId){
-                        case "+":numb1=numb1+numb2,operator="+";break;
-                        case "-":numb1=numb1-numb2,operator="-";break;
-                        case "x":numb1=numb1*numb2,operator="*";break;
-                        case "/":numb1=numb1/numb2,operator="/";break;
-
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} `;
-                }
-            }
-            else if(turn===7){
-                switch(buttonId){
-                case "0":numb2=0;break;
-                case "1":numb2=1;break;
-                case "2":numb2=2;break;
-                case "3":numb2=3;break;
-                case "4":numb2=4;break;
-                case "5":numb2=5;break;
-                case "6":numb2=6;break;
-                case "7":numb2=7;break;
-                case "8":numb2=8;break;
-                case "9":numb2=9;break;
-                }
-                    log.textContent = `${numb1} ${operator} ${numb2} `;
-            }
-            else if(turn===0){
-                if(buttonId=="="){
-                    switch(buttonId){
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} ${numb2} = ${last} `;
-                }
-                else{
-                    switch(buttonId){
-                        case "+":numb1=numb1+numb2,operator="+";break;
-                        case "-":numb1=numb1-numb2,operator="-";break;
-                        case "x":numb1=numb1*numb2,operator="*";break;
-                        case "/":numb1=numb1/numb2,operator="/";break;
-
-                        case "=":last = operate(numb1,operator,numb2);break;
-                    }
-                    log.textContent = `${numb1} ${operator} `;
-                }
-            }
         }
     })
 })
@@ -296,3 +159,4 @@ To see what this looks like in action, feel free to input the equation we just e
 // ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
 //Add a “backspace” button, so the user can undo their last input if they click the wrong number.
 //Add keyboard support!
+
