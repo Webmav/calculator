@@ -88,7 +88,7 @@ buttons.forEach((button)=>{
             else if(buttonId==="AC"){
             switch(buttonId){
                     case "AC":numb1="",numb2="",operator=undefined,
-                                numb1last=0,numb2last=0,last=0;break;
+                                numb1last=undefined,numb2last=undefined,last=0;break;
                 }
                 log.textContent = "";
                 break out;
@@ -108,8 +108,31 @@ buttons.forEach((button)=>{
                 last = Math.round(last*100)/100;
                 numb1last = last;
                 log.textContent = last;
-                numb1="";numb2="";last=0;numb2last=0;
+                numb1="";numb2="";last=0;numb2last=undefined;
                 }
+            }
+        //For backspacing of second number variable
+            else if((operator!==undefined)&&(buttonId=="backspace")){
+                console.log(numb2last);
+                numb2 = String(numb2last);
+                numb2 = numb2.slice(0, -1);
+                numb2last = Number(numb2);
+                log.textContent = numb2last;
+                console.log(numb2last);
+            }
+        //For backspacing of first number variable
+            else if(
+                (numb2last==undefined)&&
+                (operator==undefined)&&
+                (buttonId=="backspace")
+                )
+                {
+                console.log(numb1last);
+                numb1 = String(numb1last);
+                numb1 = numb1.slice(0, -1);
+                numb1last = Number(numb1);
+                log.textContent = numb1last;
+                console.log(numb1last);
             }
         //For accepting second number variable
             else if(operator!==undefined){
@@ -175,5 +198,7 @@ To see what this looks like in action, feel free to input the equation we just e
 //Users can get floating point numbers if they do the math required to get one, but they can’t type 
 // ...them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than 
 // ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
+
 //Add a “backspace” button, so the user can undo their last input if they click the wrong number.
+
 //Add keyboard support!
