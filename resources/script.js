@@ -95,7 +95,12 @@ buttons.forEach((button)=>{
             }
         //For operating after clicking '='
             else if(buttonId==="="){
-                if((numb1last == undefined) && (numb2last == undefined) && (last == undefined)&&(operator == undefined)){
+                if(
+                    (numb1last == undefined) && 
+                    (numb2last == undefined) && 
+                    (last == undefined) && 
+                    (operator == undefined) )
+                    {
                     log.textContent = "Please enter atleast one number";
                 }
                 else {
@@ -103,7 +108,7 @@ buttons.forEach((button)=>{
                 last = Math.round(last*100)/100;
                 numb1last = last;
                 log.textContent = last;
-                numb1="";numb2="";
+                numb1="";numb2="";last=0;numb2last=0;
                 }
             }
         //For accepting second number variable
