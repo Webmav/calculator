@@ -195,10 +195,132 @@ To see what this looks like in action, feel free to input the equation we just e
 
 
 //Extras
+//Add a “backspace” button, so the user can undo their last input if they click the wrong number.
+//Add keyboard support!
+
 //Users can get floating point numbers if they do the math required to get one, but they can’t type 
 // ...them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than 
 // ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
 
-//Add a “backspace” button, so the user can undo their last input if they click the wrong number.
 
-//Add keyboard support!
+
+
+
+
+//Handles keyboard clicks
+    document.addEventListener('keypress',(event)=>{
+        //Gives key id to a variable
+            key = event.key;
+        //For accepting or gives a variable the id of the button clicked
+            let buttonId = key;
+            console.log(buttonId);
+        //For multiple operation without clicking '='
+            out: if(
+                (buttonId==="+" || buttonId==="-" || buttonId==="*" || buttonId==="/")&&
+                (numb1last!==undefined)&&
+                (numb2last!==undefined)&&
+                (operator!==undefined)
+                ){  
+
+                operator = buttonId;
+
+                if(buttonId==="+"){
+                    numb1last += numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
+                }
+                if(buttonId==="-"){
+                    numb1last -= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
+                }
+                if(buttonId==="*"){
+                    numb1last *= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
+                }
+                if(buttonId==="/"){
+                    numb1last /= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
+                }
+                numb2 = "";
+                last = numb1last;
+                log.textContent = last;
+
+            }
+        //For clearing all variables
+            else if(buttonId==="AC"){
+            switch(buttonId){
+                    case "AC":numb1="",numb2="",operator=undefined,
+                                numb1last=undefined,numb2last=undefined,last=0;break;
+                }
+                log.textContent = "";
+                break out;
+            }
+        //For operating after clicking '='
+            else if(buttonId==="Enter"){
+                if(
+                    (numb1last == undefined) && 
+                    (numb2last == undefined) && 
+                    (last == undefined) && 
+                    (operator == undefined) )
+                    {
+                    log.textContent = "Please enter atleast one number";
+                }
+                else {
+                last = operate(numb1last,operator,numb2last);
+                last = Math.round(last*100)/100;
+                numb1last = last;
+                log.textContent = last;
+                numb1="";numb2="";last=0;numb2last=undefined;
+                }
+            }
+        //For backspacing of second number variable
+            else if((operator!==undefined)&&(buttonId=="backspace")){
+                console.log(numb2last);
+                numb2 = String(numb2last);
+                numb2 = numb2.slice(0, -1);
+                numb2last = Number(numb2);
+                log.textContent = numb2last;
+                console.log(numb2last);
+            }
+        //For backspacing of first number variable
+            else if(
+                (numb2last==undefined)&&
+                (operator==undefined)&&
+                (buttonId=="backspace")
+                )
+                {
+                console.log(numb1last);
+                numb1 = String(numb1last);
+                numb1 = numb1.slice(0, -1);
+                numb1last = Number(numb1);
+                log.textContent = numb1last;
+                console.log(numb1last);
+            }
+        //For accepting second number variable
+            else if(operator!==undefined){
+                let value = String(buttonId);
+                numb2+=value;
+                numb2last = Number(numb2);
+                log.textContent = numb2last;
+            }
+        //For accepting first number variable
+            else if(!isNaN(buttonId)){
+                console.log(buttonId);
+                let value = String(buttonId);
+                numb1+=value;
+                numb1last = Number(numb1);
+                log.textContent = numb1last;
+
+                //console.log(value);
+                //console.log(numb1);
+                //console.log(numb1last);
+            }
+        //For accepting operator
+            else if(isNaN(buttonId)){
+                switch(buttonId){
+                    case "+":operator="+",numb1=numb1+numb2;break;
+                    case "-":operator="-",numb1=numb1+numb2;break;
+                    case "*":operator="*",numb1=numb1+numb2;break;
+                    case "/":operator="/",numb1=numb1+numb2;break;
+                }
+            }
+})
