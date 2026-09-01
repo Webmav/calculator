@@ -89,11 +89,16 @@ buttons.forEach((button)=>{
             }
         //For operating after clicking '='
             else if(buttonId==="="){
+                if((numb1last == undefined) && (numb2last == undefined) && (last == undefined)&&(operator == undefined)){
+                    log.textContent = "Please enter atleast one number";
+                }
+                else {
                 last = operate(numb1last,operator,numb2last);
                 last = Math.round(last*100)/100;
                 numb1last = last;
                 log.textContent = last;
                 numb1="";numb2="";
+                }
             }
         //For accepting second number variable
             else if(operator!==undefined){
