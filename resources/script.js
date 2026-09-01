@@ -59,15 +59,19 @@ buttons.forEach((button)=>{
 
                 if(buttonId==="+"){
                     numb1last += numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
                 }
                 if(buttonId==="-"){
                     numb1last -= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
                 }
                 if(buttonId==="x"){
                     numb1last *= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
                 }
                 if(buttonId==="/"){
                     numb1last /= numb2last;
+                    numb1last = Math.round(numb1last*100)/100;
                 }
                 numb2 = "";
                 last = numb1last;
@@ -86,6 +90,7 @@ buttons.forEach((button)=>{
         //For operating after clicking '='
             else if(buttonId==="="){
                 last = operate(numb1last,operator,numb2last);
+                last = Math.round(last*100)/100;
                 numb1last = last;
                 log.textContent = last;
                 numb1="";numb2="";
@@ -136,8 +141,8 @@ Enter another operator or equals sign (=). At this point, it should use the prev
 To see what this looks like in action, feel free to input the equation we just explained 12 + 7 - 1 = into this
 ...online calculator(https://www.calculatorsoup.com/calculators/math/basic.php). 
 */
-
 //You should round answers with long decimals so that they don’t overflow the display
+
 //Pressing = before entering all of the numbers or an operator could cause problems!
 //Pressing “clear” should wipe out any existing data. Make sure the user is really starting fresh after 
 // ...pressing “clear”
