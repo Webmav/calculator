@@ -198,9 +198,9 @@ To see what this looks like in action, feel free to input the equation we just e
 //Add a “backspace” button, so the user can undo their last input if they click the wrong number.
 //Add keyboard support!
 
-//Users can get floating point numbers if they do the math required to get one, but they can’t type 
-// ...them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than 
-// ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
+
+
+
 
 
 
@@ -324,3 +324,9 @@ To see what this looks like in action, feel free to input the equation we just e
                 }
             }
 })
+
+//Remaining
+//Make other buttons workable
+//Users can get floating point numbers if they do the math required to get one, but they can’t type 
+// ...them in yet. Add a . button and let users input decimals! Make sure you don’t let them type more than 
+// ...one though, like: 12.3.56.5. Disable the . button if there’s already a decimal separator in the display.
