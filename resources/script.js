@@ -167,9 +167,9 @@ To see what this looks like in action, feel free to input the equation we just e
 // ...a second consecutive time. Your calculator should not evaluate this as (2 + 2) and should not display 
 // ...the result (4). If consecutive operator buttons are pressed, your calculator should not run any 
 // ...evaluations, it should only take the last operator entered to be used for the next operation.
-
 //When a result is displayed, pressing a new digit should clear the result and start a new calculation 
 // ...instead of appending the digit to the existing result. Check whether this is the case on your calculator!
+
 
 //Extras
 //Users can get floating point numbers if they do the math required to get one, but they can’t type 
